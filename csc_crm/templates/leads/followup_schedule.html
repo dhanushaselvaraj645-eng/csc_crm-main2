@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follow-Up Schedule - CRM</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/followup.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="page-title"> Follow-Up Schedule</h1>
+                <p class="page-subtitle">Manage and track all lead follow-ups</p>
+            </div>
+        </header>
+
+        <!-- Status Summary Cards -->
+        <section class="status-summary">
+            <div class="summary-card">
+                <div class="summary-icon"></div>
+                <div class="summary-content">
+                    <div class="summary-label">Due Today</div>
+                    <div class="summary-count">{{ due_today }}</div>
+                </div>
+            </div>
+
+            <div class="summary-card card-alert">
+                <div class="summary-icon"></div>
+                <div class="summary-content">
+                    <div class="summary-label">Overdue</div>
+                    <div class="summary-count">{{ overdue_count }}</div>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon"></div>
+                <div class="summary-content">
+                    <div class="summary-label">This Week</div>
+                    <div class="summary-count">{{ this_week }}</div>
+                </div>
+            </div>
+
+            <div class="summary-card card-success">
+                <div class="summary-icon"></div>
+                <div class="summary-content">
+                    <div class="summary-label">Completed Today</div>
+                    <div class="summary-count">{{ completed_today }}</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Tabs -->
+        <section class="filter-tabs">
+            <div class="tabs-container">
+                <button class="tab-button tab-active" data-tab="all">All</button>
+                <button class="tab-button" data-tab="overdue">Overdue</button>
+                <button class="tab-button" data-tab="today">Today</button>
+                <button class="tab-button" data-tab="week">This Week</button>
+            </div>
+        </section>
+
+        <!-- Follow-ups Table -->
+        <main class="main-content">
+            <!-- All Follow-ups -->
+            <section class="followup-section tab-content active" id="tab-all">
+                <div class="section-header">
+                    <h2 class="section-title">All Follow-Ups</h2>
+                </div>
+
+                {% if overdue or today_followups or week_followups %}
+                    <div class="table-wrapper">
+                        <table class="followup-table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th class="col-lead">Lead</th>
+                                    <th class="col-course">Course</th>
+                                    <th class="col-stage">Stage</th>
+                                    <th class="col-scheduled">Scheduled For</th>
+                                    <th class="col-assigned">Assigned To</th>
+                                    <th class="col-notes">Notes</th>
+                                    <th class="col-action">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                                <!-- Overdue Section -->
+                                {% if overdue %}
+                                    {% for lead in overdue %}
+                                        <tr class="table-row row-overdue">
+                                            <td class="col-lead">
+                                                <div class="lead-info">
+                                                    <span class="lead-initials">{{ lead.lead_name|slice:":2"|upper }}</span>
+                                                    <div>
+                                                        <div class="lead-name">{{ lead.lead_name }}</div>
+                                                        <div class="lead-id">{{ lead.lead_id }}</div>
+                                                        <span class="badge badge-overdue">OVERDUE</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            
+                                            <td class="col-course">{{ lead.course_interested|truncatewords:2 }}</td>
+                                            <td class="col-stage">
+                                                <span class="status-badge status-{{ lead.initial_status }}">
+                                                    {{ lead.get_initial_status_display }}
+                                                </span>
+                                            </td>
+                                            <td class="col-scheduled">
+                                                <span class="date-overdue">{{ lead.next_followup_date|date:"d M" }} (days ago) </span>
+                                            </td>
+                                            <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
+                                            <td class="col-notes">
+                                                <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                            </td>
+                                            <td class="col-action">
+                                                <a href="#" class="btn btn-small btn-action">📞 Log Call</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+
+                                <!-- Today's Follow-ups Section -->
+                                {% if today_followups %}
+                                    {% for lead in today_followups %}
+                                        <tr class="table-row row-today">
+                                            <td class="col-lead">
+                                                <div class="lead-info">
+                                                    <span class="lead-initials">{{ lead.lead_name|slice:":2"|upper }}</span>
+                                                    <div>
+                                                        <div class="lead-name">{{ lead.lead_name }}</div>
+                                                        <div class="lead-id">{{ lead.lead_id }}</div>
+                                                        <span class="badge badge-today">TODAY</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-course">{{ lead.course_interested|truncatewords:2 }}</td>
+                                            <td class="col-stage">
+                                                <span class="status-badge status-{{ lead.initial_status }}">
+                                                    {{ lead.get_initial_status_display }}
+                                                </span>
+                                            </td>
+                                            <td class="col-scheduled">
+                                                <span class="date-today">{{ lead.next_followup_date|date:"d M Y" }}</span>
+                                            </td>
+                                            <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
+                                            <td class="col-notes">
+                                                <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                            </td>
+                                            <td class="col-action">
+                                                <a href="#" class="btn btn-small btn-action">📞 Log Call</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+
+                                <!-- This Week's Follow-ups Section -->
+                                {% if week_followups %}
+                                    {% for lead in week_followups %}
+                                        <tr class="table-row row-week">
+                                            <td class="col-lead">
+                                                <div class="lead-info">
+                                                    <span class="lead-initials">{{ lead.lead_name|slice:":2"|upper }}</span>
+                                                    <div>
+                                                        <div class="lead-name">{{ lead.lead_name }}</div>
+                                                        <div class="lead-id">{{ lead.lead_id }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-course">{{ lead.course_interested|truncatewords:2 }}</td>
+                                            <td class="col-stage">
+                                                <span class="status-badge status-{{ lead.initial_status }}">
+                                                    {{ lead.get_initial_status_display }}
+                                                </span>
+                                            </td>
+                                            <td class="col-scheduled">
+                                                <span class="date-week">{{ lead.next_followup_date|date:"d M Y" }}</span>
+                                            </td>
+                                            <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
+                                            <td class="col-notes">
+                                                <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                            </td>
+                                            <td class="col-action">
+                                                <a href="#" class="btn btn-small btn-action">📞 Log Call</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="no-data">
+                        <p>No follow-ups scheduled</p>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- Overdue Follow-ups Tab -->
+            <section class="followup-section tab-content" id="tab-overdue">
+                <div class="section-header">
+                    <h2 class="section-title">Overdue Follow-Ups</h2>
+                    <span class="count-badge">{{ overdue_count }}</span>
+                </div>
+
+                {% if overdue %}
+                    <div class="table-wrapper">
+                        <table class="followup-table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th class="col-lead">Lead</th>
+                                    <th class="col-course">Course</th>
+                                    <th class="col-stage">Stage</th>
+                                    <th class="col-scheduled">Scheduled For</th>
+                                    <th class="col-assigned">Assigned To</th>
+                                    <th class="col-notes">Notes</th>
+                                    <th class="col-action">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                                {% for lead in overdue %}
+                                    <tr class="table-row row-overdue">
+                                        <td class="col-lead">
+                                            <div class="lead-info">
+                                                <span class="lead-initials">{{ lead.lead_name|slice:":2"|upper }}</span>
+                                                <div>
+                                                    <div class="lead-name">{{ lead.lead_name }}</div>
+                                                    <div class="lead-id">{{ lead.lead_id }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="col-course">{{ lead.course_interested|truncatewords:2 }}</td>
+                                        <td class="col-stage">
+                                            <span class="status-badge status-{{ lead.initial_status }}">
+                                                {{ lead.get_initial_status_display }}
+                                            </span>
+                                        </td>
+                                        <td class="col-scheduled">
+                                            <span class="date-overdue">{{ lead.next_followup_date|date:"d M " }}</span>
+                                        </td>
+                                        <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
+                                        <td class="col-notes">
+                                            <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                        </td>
+
+                                        <td class="col-action">
+                                            <a href="#" class="btn btn-small btn-action">📞 Log Call</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="no-data">
+                        <p>No overdue follow-ups! Great job staying on top of leads.</p>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- Today's Follow-ups Tab -->
+            <section class="followup-section tab-content" id="tab-today">
+                <div class="section-header">
+                    <h2 class="section-title">Today's Follow-Ups</h2>
+                    <span class="count-badge">{{ due_today }}</span>
+                </div>
+
+                {% if today_followups %}
+                    <div class="table-wrapper">
+                        <table class="followup-table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th class="col-lead">Lead</th>
+                                    <th class="col-course">Course</th>
+                                    <th class="col-stage">Stage</th>
+                                    <th class="col-scheduled">Scheduled For</th>
+                                    <th class="col-assigned">Assigned To</th>
+                                    <th class="col-notes">Notes</th>
+                                    <th class="col-action">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                                {% for lead in today_followups %}
+                                    <tr class="table-row row-today">
+                                        <td class="col-lead">
+                                            <div class="lead-info">
+                                                <span class="lead-initials">{{ lead.lead_name|slice:":2"|upper }}</span>
+                                                <div>
+                                                    <div class="lead-name">{{ lead.lead_name }}</div>
+                                                    <div class="lead-id">{{ lead.lead_id }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                      
+                                        <td class="col-course">{{ lead.course_interested|truncatewords:2 }}</td>
+                                        <td class="col-stage">
+                                            <span class="status-badge status-{{ lead.initial_status }}">
+                                                {{ lead.get_initial_status_display }}
+                                            </span>
+                                        </td>
+                                        <td class="col-scheduled">
+                                            <span class="date-today">{{ lead.next_followup_date|date:"d M Y" }}</span>
+                                        </td>
+                                        <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
+                                        <td class="col-notes">
+                                            <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                        </td>
+                                        <td class="col-action">
+                                            <a href="#" class="btn btn-small btn-action">📞 Log Call</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="no-data">
+                        <p>No follow-ups scheduled for today</p>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- This Week's Follow-ups Tab -->
+            <section class="followup-section tab-content" id="tab-week">
+                <div class="section-header">
+                    <h2 class="section-title">This Week's Follow-Ups</h2>
+                    <span class="count-badge">{{ this_week }}</span>
+                </div>
+
+                {% if week_followups %}
+                    <div class="table-wrapper">
+                        <table class="followup-table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th class="col-lead">Lead</th>
+                                    <th class="col-course">Course</th>
+                                    <th class="col-stage">Stage</th>
+                                    <th class="col-scheduled">Scheduled For</th>
+                                    <th class="col-assigned">Assigned To</th>
+                                    <th class="col-notes">Notes</th>
+                                    <th class="col-action">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                                {% for lead in week_followups %}
+                                    <tr class="table-row row-week">
+                                        <td class="col-lead">
+                                            <div class="lead-info">
+                                                <span class="lead-initials">{{ lead.lead_name|slice:":2"|upper }}</span>
+                                                <div>
+                                                    <div class="lead-name">{{ lead.lead_name }}</div>
+                                                    <div class="lead-id">{{ lead.lead_id }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="col-course">{{ lead.course_interested|truncatewords:2 }}</td>
+                                        <td class="col-stage">
+                                            <span class="status-badge status-{{ lead.initial_status }}">
+                                                {{ lead.get_initial_status_display }}
+                                            </span>
+                                        </td>
+                                        <td class="col-scheduled">
+                                            <span class="date-week">{{ lead.next_followup_date|date:"d M Y" }}</span>
+                                        </td>
+                                        <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
+                                        <td class="col-notes">
+                                            <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                        </td>
+                                        <td class="col-action">
+                                            <a href="#" class="btn btn-small btn-action">📞 Log Call</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="no-data">
+                        <p>No follow-ups scheduled for this week</p>
+                    </div>
+                {% endif %}
+            </section>
+        </main>
+    </div>
+<script>
+const buttons = document.querySelectorAll(".tab-button");
+const tabs = document.querySelectorAll(".tab-content");
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+
+        buttons.forEach(btn => btn.classList.remove("tab-active"));
+        button.classList.add("tab-active");
+
+        tabs.forEach(tab => tab.classList.remove("active"));
+
+        const target = button.getAttribute("data-tab");
+        document.getElementById("tab-" + target).classList.add("active");
+    });
+});
+</script>
+
+
+</body>
+</html>

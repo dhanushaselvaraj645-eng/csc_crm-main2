@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CSC CRM{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="crm-wrapper">
+    <!-- Nav Bar -->
+     <header class="main-navbar">
+        <div class="navbar-left">
+            <h1 class="brand-title">CSC CRM</h1>
+        </div>
+     </header>
+</div>
+
+<main class="page-body">
+    {% block content %}
+
+    {% endblock %}
+</main>
+
+<footer class="main-footer">
+
+    <div class="footer-left">
+        © 2026 CSC CRM
+    </div>
+
+    <div class="footer-right">
+        Internal System
+    </div>
+
+</footer>
+
+
+</body>
+</html>

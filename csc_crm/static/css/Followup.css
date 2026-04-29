@@ -1,0 +1,298 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 15px;
+    background:#ffffff; 
+    color: #1f2937;
+}
+
+.container {
+    padding: 20px 40px;
+   
+}
+
+.header {
+    margin-bottom: 20px;
+   background-color: #262170;
+   padding: 8px 10px;
+   border-radius: 10px;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    color: #ffffff;
+    
+    
+}
+
+
+
+
+.page-subtitle {
+    font-size: 16px;
+    color: #e4e7ec;
+    margin-top: 12px;
+}
+
+.section-header {
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.status-summary {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.summary-card {
+    flex: 1;
+    background:#ffffff;
+    border: 1px solid #e4e7ec;
+    border-radius: 12px;
+    padding: 20px 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.summary-icon {
+    font-size: 20px;
+}
+
+.summary-label {
+    font-size: 16px;
+    color:rgb(41, 40, 40) ;
+    font-weight: 600;
+}
+
+.summary-count {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.summary-card:nth-child(1) .summary-count { color:#dc2626; }
+.summary-card:nth-child(2) .summary-count { color:rgb(231, 112, 8); }
+.summary-card:nth-child(3) .summary-count { color: rgb(0, 153, 255); }
+.summary-card:nth-child(4) .summary-count { color: #16a34a;; }
+
+.tabs-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tab-button {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: none;
+    background:#e4e7ec;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.tab-active {
+   background-color: #262170;
+    color: #e4e7ec;
+
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+
+.table-wrapper {
+   background: #f8f9fc;
+    padding: 8px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px #f8f9fc ;
+    max-height: 420px;
+    overflow-y: auto;    
+}
+.table-header th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.table-header th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.followup-table {
+    width: 100%;
+    border-collapse: separate;   
+    border-spacing: 0 5px;      
+  
+}
+
+.table-header th {
+    font-size: 12px;
+    text-transform: uppercase;
+    color:#ffffff;
+    background-color:#262170;
+    padding: 10px 12px;
+    text-align: left;
+    letter-spacing: 0.5px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+
+.table-row {
+   
+    box-shadow: 0 1px 3px #6b7280;
+    background: #ffffff;  
+    border-radius: 6px;   
+    transition: all 0.2s ease;
+   
+}
+
+.table-row td {
+    padding: 10px 10px;  
+    font-size: 13px;
+     vertical-align: top;
+}
+
+
+
+.table-row:hover {
+    transform: translateY(-1px);  
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.row-overdue {
+    background: rgba(234, 214, 210, 0.61);
+}
+
+.lead-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lead-initials {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #FEF200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.lead-name {
+    font-weight: 600;
+}
+
+.lead-id {
+    font-size: 11px;
+    color: #262170;
+}
+
+.badge {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.badge-overdue {
+    color: #dc2626;
+}
+
+.badge-today {
+    color: #392de6;
+}
+
+.status-badge {
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-new {
+    background: rgba(212, 239, 249, 0.866);
+    color: #262170;
+    
+}
+
+.status-contacted {
+    background: rgba(249, 226, 185, 0.66);
+    color: rgba(217, 123, 15, 0.681);
+    
+}
+.status-interested{
+    background-color:rgba(180, 243, 183, 0.522);
+    color: #16a34a;;
+  
+}
+.status-demo_scheduled {
+   
+    background-color:rgba(249, 201, 253, 0.541);  
+    color: rgba(151, 7, 151, 0.54);              
+    
+}
+
+.date-overdue {
+    color: rgb(222, 5, 5);
+    font-weight: 500;
+}
+
+.date-today {
+    color: #262170;
+}
+
+.date-week {
+    color: #262170;
+}
+
+.btn-action {
+    background: #262170;
+    color:#ffffff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.btn-action:hover {
+    background: #3a358c;
+}
+
+.col-notes {
+    max-width: 220px;   
+}
+
+
+.notes-text {
+    display: -webkit-box;  
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}

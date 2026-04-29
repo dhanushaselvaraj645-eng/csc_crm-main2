@@ -1,0 +1,157 @@
+{% extends 'leads/base.html' %}
+
+{% block content %}
+<section class="leads-page">
+    <!-- Module Navigation Tabs -->
+     <nav class="module-tabs">
+        <a href="{% url 'lead_capture_list' %}" class="tab-link active-tab">Lead Capture</a>
+        <a href="{% url 'lead_pipeline_view' %}" class="tab-link">Pipeline View</a>
+        <a href="#" class="tab-link">Call-Log</a>
+        <a href="{% url 'followup_shedule' %}" class="tab-link">Follow-Up</a>
+        <a href="{% url 'lead_conversion_report' %}" class="tab-link">Conversion Report</a>
+
+     </nav>
+
+     <!-- Page Header -->  
+      <section class="page-header">
+         <div class="header-left">
+            <h1 class="page-title">Lead Management</h1>
+            <p class="page-subtitle">Manage enquiries, follow-ups and conversions</p>
+         </div>
+
+         <div class="header-right">
+            <a href="{% url 'lead_capture_create' %}" class="btn-primary">+ New Lead</a>
+         </div>
+      </section>
+
+      <!-- Search / Filter -->
+       <section class="filter-section">
+         <form method="GET" class="filter-form">
+            <div class="filter-group">
+               <input type="text"
+                      name="search" 
+                      value="{{ search_query }}" 
+                      placeholder="Search leads..." 
+                      class="search-input"
+               >
+            </div>
+            <div class="filter-group">
+               <button type="submit" class="btn-search">Search</button>
+            </div>
+         </form>
+       </section>
+
+      <!-- Status Cards -->
+        <section class="status-section">
+
+         {% for item in status_counts %}
+            <div class="status-card">
+               <h3 class="status-title">
+                  {{ item.initial_status|title }}
+               </h3>
+               <p class="status-number">
+                  {{item.count}}
+               </p>
+            </div>
+         {% endfor %}
+
+        </section>
+
+      <!-- Recent Leads -->
+      <section class="recent-leads-section">
+         <div class="content-card">
+            <div class="card-header">
+               <h2 class="card-title">Recent Leads Today</h2>
+            </div>
+
+            <div class="table-wrapper">
+               <table class="data-table">
+                  <thead>
+                     <tr>
+                        <th>Lead ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Course</th>
+                        <th>Status</th>
+                        <th>Follow-Up</th>
+                     </tr>
+                  </thead>
+
+                  <tbody>
+                     {% for lead in recent_leads %}
+                     <tr>
+                        <td>{{ lead.lead_id }}</td>
+                        <td>{{ lead.lead_name }}</td>
+                        <td>{{ lead.phone_no }}</td>
+                        <td>{{ lead.course_interested }}</td>
+                        <td>{{ lead.initial_status|title }}</td>
+                        <td>{{ lead.next_followup_date }}</td>
+                     </tr>
+                     {% empty %}
+                     <tr>
+                        <td colspan="6"> No Leads Today </td>
+                     </tr>
+                     {% endfor %}
+
+                  </tbody>
+
+               </table>
+
+            </div>
+         </div>
+      </section>
+      <!-- All Leads -->
+       <section class="all-leads-section">
+         <div class="content-card">
+
+            <div class="card-header">
+               <h2 class="card-title">All Leads</h2>
+            </div>
+
+            <div class="table-wrapper">
+
+               <table class="data-table">
+                  <thead>
+                     <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Source</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                     </tr>
+                  </thead>
+
+                  <tbody>
+                     {% for lead in leads %}
+
+                     <tr>
+                        <td>{{lead.lead_id}}</td>
+                        <td>{{lead.lead_name}}</td>
+                        <td>{{lead.email}}</td>
+                        <td>{{lead.phone_no}}</td>
+                        <td>{{lead.lead_source}}</td>
+                        <td>{{ lead.initial_status|title }}</td>
+                        <td>
+
+                                <a href="{% url 'lead_capture_details' lead.id %}" class="btn-view">
+                                    View
+                                </a>
+
+                                <a href="{% url 'lead_capture_update' lead.id %}" class="btn-edit">
+                                    Edit
+                                </a>
+
+                            </td>
+                     </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+
+            </div>
+
+         </div>
+       </section>
+</section>
+{% endblock %}

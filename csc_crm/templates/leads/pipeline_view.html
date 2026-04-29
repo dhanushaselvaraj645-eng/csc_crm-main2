@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline View - CRM</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <h2 class="page-title">Pipeline View</h2>
+                <p class="page-subtitle">Manage leads across different stages</p>
+            </div>
+        </header>
+
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="filter-item">
+                <label for="staff-filter">Filter by Staff</label>
+                <select class="filter-select" id="staff-filter">
+                    <option value="">All Staff</option>
+                    <option value="sathish_vishnu">Sathish Vishnu</option>
+                    <option value="receptionist_1">Receptionist 1</option>
+                    <option value="receptionist_2">Receptionist 2</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Funnel Summary -->
+        <section class="funnel-summary">
+            <h3 class="summary-title">📊 Lead Funnel — April 2026</h3>
+            <div class="funnel-container">
+                {% for item in funnel_data %}
+                    <div class="funnel-item">
+                        <div class="funnel-bar">
+                            <!-- <div class="funnel-bar-fill" style="width: {{ item.percentage }}%"></div> -->
+                        </div>
+                        <div class="funnel-label">
+                            <span class="funnel-status">{{ item.status }}</span>
+                            <span class="funnel-count">{{ item.count }}</span>
+                            <span class="funnel-percentage">{{ item.percentage }}%</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="funnel-total">
+                <p>Total Leads: <strong>{{ total_leads }}</strong></p>
+            </div>
+        </section>
+
+        <!-- Pipeline Kanban Board -->
+        <section class="pipeline-board">
+            <h3 class="board-title">Pipeline Stages</h3>
+            
+            <div class="kanban-container">
+                <!-- New Stage -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <h4 class="column-title">New</h4>
+                        <span class="column-count">
+                            {% if leads_by_status.New %}
+                                {{ leads_by_status.New|length }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="column-cards">
+                        {% if leads_by_status.New %}
+                            {% for lead in leads_by_status.New %}
+                                <div class="lead-card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">{{ lead.lead_name }}</h5>
+                                        <span class="card-id">{{ lead.lead_id }}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-course">{{ lead.course_of_interest }}</p>
+                                        <p class="card-assigned">📌 {{ lead.assigned_to|default:"Unassigned" }}</p>
+                                        <p class="card-contact">📞 {{ lead.phone_no }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="card-date">{{ lead.created_at|date:"d M" }}</span>
+                                        <a href="{% url 'lead_capture_details' lead.id %}" class="card-link">→</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-column">No leads</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Contacted Stage -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <h4 class="column-title">Contacted</h4>
+                        <span class="column-count">
+                            {% if leads_by_status.Contacted %}
+                                {{ leads_by_status.Contacted|length }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="column-cards">
+                        {% if leads_by_status.Contacted %}
+                            {% for lead in leads_by_status.Contacted %}
+                                <div class="lead-card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">{{ lead.lead_name }}</h5>
+                                        <span class="card-id">{{ lead.lead_id }}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-course">{{ lead.course_of_interest }}</p>
+                                        <p class="card-assigned">📌 {{ lead.assigned_to|default:"Unassigned" }}</p>
+                                        <p class="card-contact">📞 {{ lead.phone_no }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="card-date">{{ lead.created_at|date:"d M" }}</span>
+                                        <a href="{% url 'lead_capture_details' lead.id %}" class="card-link">→</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-column">No leads</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Interested Stage -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <h4 class="column-title">Interested</h4>
+                        <span class="column-count">
+                            {% if leads_by_status.Interested %}
+                                {{ leads_by_status.Interested|length }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="column-cards">
+                        {% if leads_by_status.Interested %}
+                            {% for lead in leads_by_status.Interested %}
+                                <div class="lead-card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">{{ lead.lead_name }}</h5>
+                                        <span class="card-id">{{ lead.lead_id }}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-course">{{ lead.course_of_interest }}</p>
+                                        <p class="card-assigned">📌 {{ lead.assigned_to|default:"Unassigned" }}</p>
+                                        <p class="card-contact">📞 {{ lead.phone_no }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="card-date">{{ lead.created_at|date:"d M" }}</span>
+                                        <a href="{% url 'lead_capture_details' lead.id %}" class="card-link">→</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-column">No leads</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Demo Scheduled Stage -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <h4 class="column-title">Demo Scheduled</h4>
+                        <span class="column-count">
+                            {% if leads_by_status.Demo_Scheduled %}
+                                {{ leads_by_status.Demo_Scheduled|length }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="column-cards">
+                        {% if leads_by_status.Demo_Scheduled %}
+                            {% for lead in leads_by_status.Demo_Scheduled %}
+                                <div class="lead-card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">{{ lead.lead_name }}</h5>
+                                        <span class="card-id">{{ lead.lead_id }}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-course">{{ lead.course_of_interest }}</p>
+                                        <p class="card-assigned">📌 {{ lead.assigned_to|default:"Unassigned" }}</p>
+                                        <p class="card-contact">📞 {{ lead.phone_no }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="card-date">{{ lead.created_at|date:"d M" }}</span>
+                                        <a href="{% url 'lead_capture_details' lead.id %}" class="card-link">→</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-column">No leads</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Enrolled Stage -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <h4 class="column-title">Enrolled</h4>
+                        <span class="column-count">
+                            {% if leads_by_status.Enrolled %}
+                                {{ leads_by_status.Enrolled|length }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="column-cards">
+                        {% if leads_by_status.Enrolled %}
+                            {% for lead in leads_by_status.Enrolled %}
+                                <div class="lead-card card-success">
+                                    <div class="card-header">
+                                        <h5 class="card-title">{{ lead.lead_name }}</h5>
+                                        <span class="card-id">{{ lead.lead_id }}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-course">{{ lead.course_of_interest }}</p>
+                                        <p class="card-assigned">📌 {{ lead.assigned_to|default:"Unassigned" }}</p>
+                                        <p class="card-contact">📞 {{ lead.phone_no }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="card-date">{{ lead.created_at|date:"d M" }}</span>
+                                        <a href="{% url 'lead_capture_details' lead.id %}" class="card-link">→</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-column">No leads</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Lost Stage -->
+                <div class="kanban-column">
+                    <div class="column-header">
+                        <h4 class="column-title">Lost</h4>
+                        <span class="column-count">
+                            {% if leads_by_status.Lost %}
+                                {{ leads_by_status.Lost|length }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="column-cards">
+                        {% if leads_by_status.Lost %}
+                            {% for lead in leads_by_status.Lost %}
+                                <div class="lead-card card-lost">
+                                    <div class="card-header">
+                                        <h5 class="card-title">{{ lead.lead_name }}</h5>
+                                        <span class="card-id">{{ lead.lead_id }}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-course">{{ lead.course_of_interest }}</p>
+                                        <p class="card-assigned">📌 {{ lead.assigned_to|default:"Unassigned" }}</p>
+                                        <p class="card-contact">📞 {{ lead.phone_no }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="card-date">{{ lead.created_at|date:"d M" }}</span>
+                                        <a href="{% url 'lead_capture_details' lead.id %}" class="card-link">→</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="empty-column">No leads</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+</body>
+</html>

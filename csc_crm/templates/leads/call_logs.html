@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Logs..</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body {
+    font-family: Arial;
+    background: rgb(236, 237, 241);
+    padding: 20px;
+   
+   
+    
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+}
+
+
+
+
+.form-box {
+    width: 55%;
+    
+}
+
+.sub-text {
+    color: rgb(140, 142, 169);
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 12px;
+    color: rgb(88, 86, 86);
+    font-weight: bold;
+}
+
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px 2px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: 1px solid rgba(192, 200, 198, 0.418);
+    background: transparent;
+    font-size: 14px;
+    height: 32px;
+    box-sizing: border-box;
+}
+
+
+select { appearance: none;
+    
+}
+
+.row {
+    display: flex;
+    gap: 25px;
+    align-items: flex-end; 
+}
+
+.field {
+    width: 50%;
+}
+
+
+textarea {
+    height: 60px;
+}
+
+
+button {
+    width: 100%;
+    padding: 10px;
+    background:rgb(4, 4, 138);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+button:hover{
+    background:rgb(37, 35, 158);
+}
+
+.fa-phone.save{
+    color:rgb(248, 199, 2);
+  
+}
+
+h2{
+    color: rgb(11, 11, 149);
+}
+.history {
+    width: 45%;
+    
+  max-height: 550px; 
+  overflow-y: auto;
+  padding-right: 8px;
+  scroll-behavior: smooth ;
+  scrollbar-color: rgb(222, 221, 221);
+  scrollbar-width: thin;
+
+  
+   
+}
+
+
+.recent-header {
+  position: sticky;
+  top: 0;
+  background-color: rgb(236, 237, 241);
+  z-index: 10;
+  padding: 10px 0;
+}
+
+
+.card {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-left: 4px solid white;
+    background: rgb(250, 247, 247);
+    border-radius: 8px;
+    transition: 0.2s;
+    
+}
+
+.card:hover {
+    transform: scale(1.01);
+}
+
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card h4 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.time {
+    font-size: 11px;
+    color: grey;
+}
+
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.card p {
+    font-size: 13px;
+    margin: 5px 0;
+    color: rgb(90, 88, 88);
+}
+
+.follow {
+    font-size: 12px;
+    color: rgb(26, 21, 188);
+}
+
+
+.delete-btn {
+    background: rgb(244, 87, 87);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    font-size: 11px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    background: rgb(238, 75, 75);
+}
+
+
+.interested { border-color: rgb(90, 226, 90); }
+.interested .badge { background: rgb(149, 231, 149); color:rgb(36, 42, 28); }
+
+.not-reachable { border-color: rgba(255, 166, 0, 0.775); }
+.not-reachable .badge { background: rgb(231, 189, 110); color: rgb(147, 57, 24); }
+
+.demo-scheduled { border-color: rgb(112, 209, 222); }
+.demo-scheduled .badge { background: rgb(154, 206, 228); color: rgb(27, 71, 121); }
+
+.not-interested { border-color: rgba(243, 74, 74, 0.796); }
+.not-interested .badge { background: rgb(242, 146, 146); color:rgb(94, 24, 24); }
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    
+    <div class="form-box">
+        <h2> Log a Call.. </h2>
+        <p class="sub-text">Record call details ..</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label> NAME</label>
+            <input type="text" name="lead_name">
+
+            <div class="row">
+                <div class="field">
+                    <label>CALL DATE</label>
+                    <input type="date" name="call_date">
+                </div>
+
+                <div class="field">
+                    <label>CALL TIME</label>
+                    <input type="time" name="call_time">
+                </div>
+            </div>
+
+           <div class="row">
+                  <div class="field">
+                    <label>DURATION</label>
+                    <input type="number" name="duration">
+                </div>
+
+                <div class="field">
+                    <label>CALL OUTCOME</label>
+
+                    <select name="call_outcome">
+                        <option>Interested</option>
+                        <option>Not Reachable</option>
+                        <option>Demo Scheduled</option>
+                        <option>Not Interested</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>CALL NOTES</label>
+            <textarea name="notes"></textarea>
+
+            <label>NEXT FOLLOW-UP DATE</label>
+            <input type="date" name="next_followup_date">
+
+            <button type="submit"><i class="fa fa-phone save"></i> Save CallLog..</button>
+            
+        </form>
+    </div>
+
+   
+    <div class="history">
+
+        <div class="recent-header">
+    <h3>Recent Call History</h3>
+  </div>
+       
+
+        {% for log in logs %}
+        <div class="card {{ log.call_outcome|slugify }}">
+
+            <div class="card-header">
+                <h4>{{ log.lead_name }}</h4>
+
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span class="time">
+                        {{ log.call_date }} • {{ log.duration }}m
+                    </span>
+
+                    <form method="POST" action="{% url 'delete_call' log.id %}">
+                        {% csrf_token %}
+                        <button class="delete-btn">🗑</button>
+                    </form>
+                </div>
+            </div>
+
+            <span class="badge {{ log.call_outcome|slugify }}">
+                {{ log.call_outcome }}
+            </span>
+
+            <p>{{ log.notes }}</p>
+
+           {% if log.next_followup_date and log.call_outcome != "Not Interested" %}
+
+    <div class="follow">
+
+        followup date: {{ log.next_followup_date }}
+    </div>
+    {% endif %}
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
