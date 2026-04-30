@@ -296,3 +296,153 @@ body {
     text-overflow: ellipsis;
     word-break: break-word;
 }
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    .status-summary {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .summary-card {
+        flex: 1 1 calc(50% - 10px);
+    }
+
+    .followup-table {
+        min-width: 900px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+}
+
+
+ 
+@media screen and (max-width: 768px) {
+
+    .container {
+        padding: 10px;
+    }
+
+    /* HEADER */
+    .page-title {
+        font-size: 18px;
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+    }
+
+    .status-summary {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .summary-card {
+        padding: 12px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .summary-label {
+        font-size: 12px;
+    }
+
+    .summary-count {
+        font-size: 18px;
+    }
+
+    .tabs-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+    }
+
+    .tab-button {
+        flex-shrink: 0;
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .followup-table {
+        min-width: 750px;
+    }
+
+    .table-row td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .btn-action {
+        font-size: 11px;
+        padding: 5px 8px;
+    }
+}
+
+
+
+@media screen and (max-width: 480px) {
+
+    .container {
+        padding: 8px;
+    }
+
+   
+    .page-title {
+        font-size: 16px;
+    }
+
+    .summary-count {
+        font-size: 16px;
+    }
+
+    .summary-label {
+        font-size: 11px;
+    }
+
+    /* CARDS */
+    .summary-card {
+        padding: 10px;
+    }
+
+   
+    .followup-table {
+        min-width: 650px;
+    }
+
+    .lead-initials {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+    }
+
+    .notes-text {
+        font-size: 11px;
+    }
+
+    .btn-action {
+        font-size: 10px;
+        padding: 4px 6px;
+    }
+}
