@@ -203,6 +203,36 @@ h2{
 .not-interested { border-color: rgba(243, 74, 74, 0.796); }
 .not-interested .badge { background: rgb(242, 146, 146); color:rgb(94, 24, 24); }
 
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.popup-content {
+    background: #fff;
+    width: 400px;
+    padding: 20px;
+    margin: 8% auto;
+    border-radius: 10px;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
 
 </style>
 </head>
@@ -266,13 +296,24 @@ h2{
    
     <div class="history">
 
-        <div class="recent-header">
+        
     <h3>Recent Call History</h3>
-  </div>
+  
        
 
-        {% for log in logs %}
-        <div class="card {{ log.call_outcome|slugify }}">
+    {% for log in logs %}
+        
+            <a href="javascript:void(0);" class="card-link"
+             onclick="openPopup(
+            '{{ log.lead_name }}',
+            '{{ log.call_date }}',
+            '{{ log.call_time }}',
+            '{{ log.duration }}',
+            '{{ log.call_outcome }}',
+            '{{ log.notes }}',
+            '{{ log.next_followup_date }}')">
+
+         <div class="card {{ log.call_outcome|slugify }}">
 
             <div class="card-header">
                 <h4>{{ log.lead_name }}</h4>
@@ -301,14 +342,49 @@ h2{
 
         followup date: {{ log.next_followup_date }}
     </div>
-    {% endif %}
-
-        </div>
-        {% endfor %}
+     {% endif %}
+      
+    </div>
+       <a>
+     {% endfor %}
 
     </div>
 
 </div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+<div class="popup-content">
+<span class="close" onclick="closePopup()">&times;</span>
+
+<h3 id="p_name"></h3>
+<p>Date: <span id="p_date"></span></p>
+<p>Time: <span id="p_time"></span></p>
+<p>Duration: <span id="p_duration"></span></p>
+<p>Outcome: <span id="p_outcome"></span></p>
+<p>Notes: <span id="p_notes"></span></p>
+<p>Followup: <span id="p_follow"></span></p>
+
+</div>
+</div>
+
+<script>
+function openPopup(name, date, time, duration, outcome, notes, follow) {
+document.getElementById("p_name").innerText = name;
+document.getElementById("p_date").innerText = date;
+document.getElementById("p_time").innerText = time;
+document.getElementById("p_duration").innerText = duration;
+document.getElementById("p_outcome").innerText = outcome;
+document.getElementById("p_notes").innerText = notes;
+document.getElementById("p_follow").innerText = follow;
+
+document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+document.getElementById("popup").style.display = "none";
+}
+</script>
 
 </body>
 </html>
