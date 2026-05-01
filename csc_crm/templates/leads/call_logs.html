@@ -73,10 +73,11 @@ select { appearance: none;
 }
 
 
-textarea {
-    height: 60px;
-}
 
+textarea {
+    height: 120px;
+    resize: vertical;
+}
 
 button {
     width: 100%;
@@ -316,11 +317,13 @@ h2{
         <h2> Log a Call.. </h2>
         <p class="sub-text">Record call details ..</p>
 
-        <form method="POST">
-            {% csrf_token %}
+        <form method="POST" onsubmit="return validateForm()">
+        {% csrf_token %}
 
-            <label> NAME</label>
-            <input type="text" name="lead_name">
+    
+        <label> NAME</label>
+        <input type="text" name="lead_name" id="lead_name">
+        <span id="name_error" style="color:red; font-size:12px;"></span>
 
             <div class="row">
                 <div class="field">
@@ -353,7 +356,7 @@ h2{
             </div>
 
             <label>CALL NOTES</label>
-            <textarea name="notes"></textarea>
+            <textarea name="notes" rows="5"></textarea>
 
             <label>NEXT FOLLOW-UP DATE</label>
             <input type="date" name="next_followup_date">
@@ -422,7 +425,7 @@ h2{
 
 </div>
 
-<!-- POPUP -->
+
 <div id="popup" class="popup">
 <div class="popup-content">
 <span class="close" onclick="closePopup()">&times;</span>
@@ -440,21 +443,34 @@ h2{
 
 <script>
 function openPopup(name, date, time, duration, outcome, notes, follow) {
-document.getElementById("p_name").innerText = name;
-document.getElementById("p_date").innerText = date;
-document.getElementById("p_time").innerText = time;
-document.getElementById("p_duration").innerText = duration;
-document.getElementById("p_outcome").innerText = outcome;
-document.getElementById("p_notes").innerText = notes;
-document.getElementById("p_follow").innerText = follow;
+    document.getElementById("p_name").innerText = name;
+    document.getElementById("p_date").innerText = date;
+    document.getElementById("p_time").innerText = time;
+    document.getElementById("p_duration").innerText = duration;
+    document.getElementById("p_outcome").innerText = outcome;
+    document.getElementById("p_notes").innerText = notes;
+    document.getElementById("p_follow").innerText = follow;
 
-document.getElementById("popup").style.display = "block";
+    document.getElementById("popup").style.display = "block";
 }
 
 function closePopup() {
-document.getElementById("popup").style.display = "none";
+    document.getElementById("popup").style.display = "none";
+}
+
+
+function validateForm() {
+    let name = document.getElementById("lead_name").value.trim();
+    let error = document.getElementById("name_error");
+
+    if (name === "") {
+        error.innerText = "Enter valid name";
+        return false; // stop submit
+    } else {
+        error.innerText = "";
+        return true; // allow submit
+    }
 }
 </script>
-
 </body>
 </html>
