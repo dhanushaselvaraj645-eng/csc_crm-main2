@@ -1,0 +1,269 @@
+body {
+    font-family: Arial;
+    background: rgb(236, 237, 241);
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+}
+
+.form-box {
+    width: 55%;
+}
+
+.sub-text {
+    color: rgb(140, 142, 169);
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 12px;
+    color: rgb(88, 86, 86);
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px 2px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(128, 128, 128, 0.232);
+    border-radius: 10px;
+    background: transparent;
+    font-size: 14px;
+    height: 32px;
+    box-sizing: border-box;
+}
+
+select {
+    appearance: none;
+}
+
+.row {
+    display: flex;
+    gap: 25px;
+    align-items: flex-end;
+}
+
+.field {
+    width: 50%;
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: rgb(4, 4, 138);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: rgb(37, 35, 158);
+}
+
+.fa-phone.save {
+    color: rgb(248, 199, 2);
+}
+
+h2 {
+    color: rgb(11, 11, 149);
+}
+
+.history {
+    width: 45%;
+    max-height: 550px;
+    overflow-y: auto;
+    padding-right: 8px;
+    scroll-behavior: smooth;
+    scrollbar-color: rgb(222, 221, 221);
+    scrollbar-width: thin;
+}
+
+.recent-header {
+    position: sticky;
+    top: 0;
+    background-color: rgb(236, 237, 241);
+    z-index: 10;
+    padding: 10px 0;
+}
+
+.card {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-left: 4px solid white;
+    background: rgb(250, 247, 247);
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.01);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card h4 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.time {
+    font-size: 11px;
+    color: grey;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.card p {
+    font-size: 13px;
+    margin: 5px 0;
+    color: rgb(90, 88, 88);
+}
+
+.follow {
+    font-size: 12px;
+    color: rgb(26, 21, 188);
+}
+
+.delete-btn {
+    background: rgb(244, 87, 87);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    font-size: 11px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.delete-btn:hover {
+    background: rgb(238, 75, 75);
+}
+
+.interested { border-color: rgb(90, 226, 90); }
+.interested .badge { background: rgb(149, 231, 149); color: rgb(36, 42, 28); }
+
+.not-reachable { border-color: rgba(255, 166, 0, 0.775); }
+.not-reachable .badge { background: rgb(231, 189, 110); color: rgb(147, 57, 24); }
+
+.demo-scheduled { border-color: rgb(112, 209, 222); }
+.demo-scheduled .badge { background: rgb(154, 206, 228); color: rgb(27, 71, 121); }
+
+.not-interested { border-color: rgba(243, 74, 74, 0.796); }
+.not-interested .badge { background: rgb(242, 146, 146); color: rgb(94, 24, 24); }
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.popup-content {
+    background: #fff;
+    width: 400px;
+    padding: 20px;
+    margin: 8% auto;
+    border-radius: 10px;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-box,
+    .history {
+        width: 100%;
+    }
+
+    .history {
+        max-height: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .sub-text {
+        font-size: 13px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .field {
+        width: 100%;
+    }
+
+    input, select, textarea {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .card h4 {
+        font-size: 14px;
+    }
+
+    .time {
+        font-size: 10px;
+    }
+
+    .popup-content {
+        width: 90%;
+        margin: 25% auto;
+    }
+}
