@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <label>CALL NOTES</label>
+            <label>CALL NOTES (OPTIONAL)</label>
             <textarea name="notes" rows="5"></textarea>
 
             <label>NEXT FOLLOW-UP DATE</label>
@@ -169,10 +169,10 @@ function validateForm() {
 
     if (name === "") {
         error.innerText = "Enter valid name";
-        return false; // stop submit
+        return false; 
     } else {
         error.innerText = "";
-        return true; // allow submit
+        return true; 
     }
 }
 </script>
