@@ -49,8 +49,8 @@ input, select, textarea {
     padding: 8px 2px;
     margin-top: 5px;
     margin-bottom: 15px;
-    border: none;
-    border-bottom: 1px solid rgba(192, 200, 198, 0.418);
+    border: 1px solid rgba(128, 128, 128, 0.229);
+    border-radius: 10px;
     background: transparent;
     font-size: 14px;
     height: 32px;
@@ -322,25 +322,25 @@ h2{
 
     
         <label> NAME</label>
-        <input type="text" name="lead_name" id="lead_name">
+        <input type="text" name="lead_name" id="lead_name"  placeholder="Enter name">
         <span id="name_error" style="color:red; font-size:12px;"></span>
 
             <div class="row">
                 <div class="field">
                     <label>CALL DATE</label>
-                    <input type="date" name="call_date">
+                    <input type="date" name="call_date" placeholder="enter call date" onclick="this.showPicker()">
                 </div>
 
                 <div class="field">
                     <label>CALL TIME</label>
-                    <input type="time" name="call_time">
+                    <input type="time" name="call_time" placeholder="enter calltime" onclick="this.showPicker()">
                 </div>
             </div>
 
            <div class="row">
                   <div class="field">
                     <label>DURATION</label>
-                    <input type="number" name="duration">
+                    <input type="number" name="duration" >
                 </div>
 
                 <div class="field">
@@ -359,7 +359,7 @@ h2{
             <textarea name="notes" rows="5"></textarea>
 
             <label>NEXT FOLLOW-UP DATE</label>
-            <input type="date" name="next_followup_date">
+            <input type="date" name="next_followup_date" onclick="this.showPicker()">
 
             <button type="submit"><i class="fa fa-phone save"></i> Save CallLog..</button>
             

@@ -71,7 +71,7 @@ class CallLog(models.Model):
 
     call_outcome = models.CharField(max_length=50, choices=LEAD_STATUS_CHOICES)
 
-    notes = models.TextField()
+    notes = models.TextField(blank=True, null=True)
 
     next_followup_date = models.DateField(null=True, blank=True)
 
