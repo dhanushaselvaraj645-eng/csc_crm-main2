@@ -18,8 +18,8 @@
 
     
     <div class="form-box">
-        <h2> Log a Call.. </h2>
-        <p class="sub-text">Record call details ..</p>
+        <h2> Log a Call </h2>
+        <p class="sub-text">Record call details</p>
 
         <form method="POST" onsubmit="return validateForm()">
         {% csrf_token %}
@@ -32,19 +32,19 @@
             <div class="row">
                 <div class="field">
                     <label>CALL DATE</label>
-                    <input type="date" name="call_date" placeholder="enter call date" onclick="this.showPicker()">
+                    <input type="date" name="call_date" placeholder="Enter call date" onclick="this.showPicker()">
                 </div>
 
                 <div class="field">
                     <label>CALL TIME</label>
-                    <input type="time" name="call_time" placeholder="enter calltime" onclick="this.showPicker()">
+                    <input type="time" name="call_time" placeholder="Enter calltime" onclick="this.showPicker()">
                 </div>
             </div>
 
            <div class="row">
                   <div class="field">
                     <label>DURATION</label>
-                    <input type="number" name="duration" >
+                    <input type="number" name="duration" placeholder="Enter Duration" >
                 </div>
 
                 <div class="field">
@@ -60,7 +60,7 @@
             </div>
 
             <label>CALL NOTES (OPTIONAL)</label>
-            <textarea name="notes" rows="5"></textarea>
+            <textarea name="notes" rows="5" placeholder="Enter call notes"></textarea>
 
             <label>NEXT FOLLOW-UP DATE</label>
             <input type="date" name="next_followup_date" onclick="this.showPicker()">
@@ -100,12 +100,14 @@
                         {{ log.call_date }} • {{ log.duration }}m
                     </span>
 
-                    <form method="POST" action="{% url 'delete_call' log.id %}">
-                        {% csrf_token %}
-                         <button type="submit" class="delete-btn" onclick="return confirm('Do you want to delete this call history?');">
-                         🗑
-                        </button>
-                    </form>
+                
+                <form method="POST" action="{% url 'delete_call' log.id %}" onsubmit="return confirm('Do you want to delete this call history?')">
+                 {% csrf_token %}
+                <button type="submit" class="delete-btn" onclick="event.stopPropagation();">
+                   🗑
+                </button>
+                </form>
+                
                 </div>
             </div>
 

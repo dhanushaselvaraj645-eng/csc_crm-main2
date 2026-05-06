@@ -27,20 +27,26 @@ label {
 
 input, select, textarea {
     width: 100%;
-    padding: 8px 2px;
+    padding: 8px 8px;
     margin-top: 5px;
     margin-bottom: 15px;
-    border: 1px solid rgba(128, 128, 128, 0.232);
+    border: 1px solid rgba(36, 36, 39, 0.232);
     border-radius: 10px;
-    background: transparent;
+    
     font-size: 14px;
     height: 32px;
     box-sizing: border-box;
+    
+}
+input:focus, 
+select:focus, 
+textarea:focus {
+    outline: none;
+    border: 1px solid rgba(9, 100, 170, 0.623); 
+    
+    
 }
 
-select {
-    appearance: none;
-}
 
 .row {
     display: flex;
@@ -194,6 +200,7 @@ h2 {
     padding: 20px;
     margin: 8% auto;
     border-radius: 10px;
+   
 }
 
 .close {
