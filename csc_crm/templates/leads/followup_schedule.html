@@ -111,7 +111,7 @@
                                             </td>
                                             <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
                                             <td class="col-notes">
-                                                <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                                <span class="notes-text" onclick="toggleNote(this)">{{ lead.initial_notes|truncatewords:5 }}</span>
                                             </td>
                                             <td class="col-action">
                                                 <a href="{% url 'call_logs' %}" class="btn btn-small btn-action">📞 Log Call</a>
@@ -145,7 +145,7 @@
                                             </td>
                                             <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
                                             <td class="col-notes">
-                                                <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                                <span class="notes-text" onclick="toggleNote(this)">{{ lead.initial_notes|truncatewords:5 }}</span>
                                             </td>
                                             <td class="col-action">
                                                 <a href="{% url 'call_logs' %}" class="btn btn-small btn-action">📞 Log Call</a>
@@ -178,7 +178,7 @@
                                             </td>
                                             <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
                                             <td class="col-notes">
-                                                <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                                <span class="notes-text" onclick="toggleNote(this)">{{ lead.initial_notes|truncatewords:5 }}</span>
                                             </td>
                                             <td class="col-action">
                                                 <a href="{% url 'call_logs' %}" class="btn btn-small btn-action">📞 Log Call</a>
@@ -240,7 +240,7 @@
                                         </td>
                                         <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
                                         <td class="col-notes">
-                                            <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                            <span class="notes-text" onclick="toggleNote(this)">{{ lead.initial_notes|truncatewords:5 }}</span>
                                         </td>
 
                                         <td class="col-action">
@@ -303,7 +303,7 @@
                                         </td>
                                         <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
                                         <td class="col-notes">
-                                            <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                            <span class="notes-text" onclick="toggleNote(this)">{{ lead.initial_notes|truncatewords:5 }}</span>
                                         </td>
                                         <td class="col-action">
                                             <a href="{% url 'call_logs' %}" class="btn btn-small btn-action">📞 Log Call</a>
@@ -364,7 +364,7 @@
                                         </td>
                                         <td class="col-assigned">{{ lead.assigned_to|default:"Unassigned" }}</td>
                                         <td class="col-notes">
-                                            <span class="notes-text">{{ lead.initial_notes|truncatewords:5 }}</span>
+                                            <span class="notes-text" onclick="toggleNote(this)">{{ lead.initial_notes|truncatewords:5 }}</span>
                                         </td>
                                         <td class="col-action">
                                             <a href="{% url 'call_logs' %}" class="btn btn-small btn-action">📞 Log Call</a>
@@ -398,6 +398,9 @@ buttons.forEach(button => {
         document.getElementById("tab-" + target).classList.add("active");
     });
 });
+function toggleNote(el) {
+    el.classList.toggle("expanded");
+}
 </script>
 
 

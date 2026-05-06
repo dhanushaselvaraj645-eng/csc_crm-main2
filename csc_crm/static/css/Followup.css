@@ -282,16 +282,25 @@ body {
     background: #3a358c;
 }
 
+
 .col-notes {
     max-width: 220px;   
+    word-break: break-word;
+}
+
+.notes-text {
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 
-.notes-text {
-    display: -webkit-box;  
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.notes-text.expanded {
+    white-space: normal;
+    overflow: hidden;      
     word-break: break-word;
 }
 

@@ -195,12 +195,12 @@ h2 {
 }
 
 .popup-content {
-    background: #fff;
+    background: #addfede0;
     width: 400px;
     padding: 20px;
     margin: 8% auto;
     border-radius: 10px;
-   
+    
 }
 
 .close {
